@@ -31,10 +31,11 @@ function updateCountdown() {
 }
 
 //spinning gif
-setTimeout (() ==> {
+setTimeout (() => {
     loading.remove ();
-    countdown.style.display = "flex";
-},timeout);
+    countdown.style.display ="flex";
+},1000);
+
 
 //keep it running
 setInterval(updateCountdown, 1000);
