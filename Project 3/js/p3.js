@@ -1,7 +1,7 @@
 //declaring our variables
-const courses = document.querySelector("#courses-list"),
-  shoppingCartContent = document.querySelector("#cart-content tbody"),
-  clearCartBtn = document.querySelector("#clear-cart");
+const courses = document.querySelector("#courses-list");
+const  shoppingCartContent = document.querySelector("#cart-content tbody");
+const clearCartBtn = document.querySelector("#clear-cart");
 
 //event listeners
 loadEventListeners();
@@ -75,14 +75,14 @@ function addIntoCart(course) {
     let courses = getCoursesFromStorage();
 
     //add the course into the array
-    courses.push(coursse);
+    courses.push(course);
 
     //since storage only saves strings, we need to convert JSON into String
-    getFromLocalStorage.setItem("courses", JSON.stringify(courses));
+    localStorage.setItem("courses", JSON.stringify(courses));
   }
 
   //get the contents from the storage
-  function getFromLocalStorage() {
+  function getCoursesFromStorage() {
     let courses;
 
     //if something exits in storage then we get the value, otherwise we create an empty array
@@ -103,10 +103,10 @@ function removeCourse(e) {
     e.target.parentElement.parentElement.remove();
     course = e.target.parentElement.parentElement;
     courseId = course.querySelector("a").getAttribute("data-id");
-    S;
   }
   console.log(courseId);
   //remove CourseLocalStorage(courseId)
+  removeCourseLocalStorage(courseId);
 }
 //remove from local storage
 function removeCourseLocalStorage(id) {
@@ -114,14 +114,14 @@ function removeCourseLocalStorage(id) {
   let coursesLS = getCoursesFromStorage();
 
   //loop through the array and find the index to remove
-  coursesLS.forEach(function (coursesLS) {
+  coursesLS.forEach(function (coursesLS, index) {
     if (coursesLS.id === id) {
       coursesLS.splice(index, 1);
     }
   });
 
   //add the rest of the array
-  localStorage.getItem("courses", JSON.stringify(coursesLS));
+  localStorage.setItem("courses", JSON.stringify(coursesLS));
 }
 //clears the shopping cart
 function clearCart() {
@@ -137,8 +137,8 @@ function clearLocalStorage() {
   localStorage.clear();
 }
 
-//lead when document is ready and print courses into shopping cart
-function getCoursesFromStorage() {
+//loads when document is ready and print courses into shopping cart
+function getFromLocalStorage() {
   let coursesLS = getCoursesFromStorage();
 
   //LOOP through the courses and print into the cart
